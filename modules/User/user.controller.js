@@ -54,7 +54,7 @@ const insertUser = (req, res) => {
 
 
 // Create function for putuser
-const putUser = function (req, res) {
+const putUser = (req, res) => {
     // Use the Beer model to find a specific user
     User.findById(req.params.user_id, function (err, user) {
         if (err)
@@ -75,7 +75,7 @@ const putUser = function (req, res) {
 
 
 // Create function  for deleteuser
-const deleteUser = function (req, res) {
+const deleteUser = (req, res) => {
     // Use the Beer model to find a specific user
     User.findByIdAndDelete(req.params.user_id, function (err, user) {
         if (err)
@@ -92,4 +92,4 @@ const deleteUser = function (req, res) {
 
 
 
-module.exports = { getUser,insertUser,deleteUser,putUser };
+module.exports = { getUser, insertUser, deleteUser, putUser };

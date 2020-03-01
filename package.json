@@ -17,7 +17,12 @@
   },
   "homepage": "https://github.com/ajaybindx/ProjectUser#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.1"
+    "joi": "^14.3.1",
+    "mongoose": "^5.9.1",
+    "multer": "^1.4.2",
+    "save": "^2.4.0"
   }
 }
