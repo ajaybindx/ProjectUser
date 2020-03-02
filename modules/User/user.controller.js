@@ -56,20 +56,12 @@ const insertUser = (req, res) => {
 // Create function for putuser
 const putUser = (req, res) => {
     // Use the Beer model to find a specific user
-    User.findById(req.params.user_id, function (err, user) {
-        if (err)
+    User.findByIdAndUpdate({ _id: req.params.user_id }, req.body, (err, user) => {
+        if (err) {
             res.send(err);
+        }
+        res.send({ msg: 'Updated', data: user });
 
-        // Update the existing user isActivated
-        user.isActivated = req.body.isActivated;
-
-        // Save the user and check for errors
-        user.save(function (err) {
-            if (err)
-                res.send(err);
-
-            res.json(user);
-        });
     });
 };
 
@@ -77,11 +69,21 @@ const putUser = (req, res) => {
 // Create function  for deleteuser
 const deleteUser = (req, res) => {
     // Use the Beer model to find a specific user
-    User.findByIdAndDelete(req.params.user_id, function (err, user) {
+    User.findByIdAndDelete(req.params.user_id, (err, user) => {
         if (err)
             res.send(err);
         // Update the existing beer quantity
         res.send("DELETED ")
+    });
+};
+
+const getById = (req, res) => {
+    // Use the Beer model to find a specific user
+    User.findById(req.params.user_id, (err, user) => {
+        if (err)
+            res.send(err);
+        // Update the existing beer quantity
+        res.send(user)
     });
 };
 
@@ -92,4 +94,4 @@ const deleteUser = (req, res) => {
 
 
 
-module.exports = { getUser, insertUser, deleteUser, putUser };
+module.exports = { getUser, insertUser, deleteUser, putUser ,getById};
