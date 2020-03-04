@@ -55,7 +55,7 @@ const insertUser = (req, res) => {
 
 // Create function for putuser
 const putUser = (req, res) => {
-    // Use the Beer model to find a specific user
+    // Use the User model to find a specific user
     User.findByIdAndUpdate({ _id: req.params.user_id }, req.body, (err, user) => {
         if (err) {
             res.send(err);
@@ -68,22 +68,26 @@ const putUser = (req, res) => {
 
 // Create function  for deleteuser
 const deleteUser = (req, res) => {
-    // Use the Beer model to find a specific user
+    // Use the User model to find a specific user and Update
     User.findByIdAndDelete(req.params.user_id, (err, user) => {
-        if (err)
+        if (err) {
             res.send(err);
-        // Update the existing beer quantity
+        }
+
+
         res.send("DELETED ")
     });
 };
 
 const getById = (req, res) => {
     // Use the Beer model to find a specific user
-    User.findById(req.params.user_id, (err, user) => {
-        if (err)
+    User.findById(req.params.user_id, (err, result) => {
+        if (err) {
             res.send(err);
+        }
+
         // Update the existing beer quantity
-        res.send(user)
+        res.send(result)
     });
 };
 
@@ -94,4 +98,4 @@ const getById = (req, res) => {
 
 
 
-module.exports = { getUser, insertUser, deleteUser, putUser ,getById};
+module.exports = { getUser, insertUser, deleteUser, putUser, getById };

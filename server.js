@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./modules');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const app = express();
 app.use(bodyParser.json({ type: 'application/json' }));
@@ -13,6 +14,13 @@ app.use(bodyParser.json());
 
 // Public Folder
 app.use(express.static('./modules/'));
+
+// Passport Config
+require('./config/passport')(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // port of server
 const port = 8080;

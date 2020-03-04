@@ -18,23 +18,21 @@ const postRegister = (req, res) => {
     console.log(req.body.email);
     let register = new Register();
     register.email = req.body.email;
-    let hash = '';
-    var password = req.body.password;
-    // var hash = bcrypt.hashSync(password, 2000000);
-    // register.password = hash;
-    bcrypt.hash(password, 10)
-    .then((hash) => {
-        register.password = hash;
-        register.save(function (err) {
-            if (err) {
-                res.send(err);
-            }
-            res.json({ msg: 'Registration Done', data: register });
-        });    
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+
+
+    bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+            register.password = hash;
+            register.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json({ msg: 'Registration Done', data: register });
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 
