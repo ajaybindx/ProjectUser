@@ -1,5 +1,6 @@
 const multer = require('multer');
 const path = require('path');
+const Image = require('./image.model');
 
 
 
@@ -49,14 +50,55 @@ const uploadImage = (req, res) => {
                     msg: 'Error: No File Selected!'
                 });
             } else {
-                res.send({
-                    msg: 'File Uploaded!'
-                    //,file: `uploads/${req.file.filename}`
+                let image = new Image();
+                image.imagepath = (req.file.fieldname + '-' + Date.now() + path.extname(req.file.originalname));
+                image.save((err) => {
+                    if (err) {
+                        res.send(err);
+                    }
+                    res.json({ msg: 'File Uploaded!', data: image.imagepath });
                 });
-            }
+
+            };
         }
+    })
+};
+
+
+const getImage = (req, res) => {
+
+    Image.find({ imagepath: req.params.imagepath }, (err, result) => {
+        if (err) {
+            res.send(err);
+        } else {
+            if (result.length == 0) {
+                res.send({ massage: "No profilePic found " });
+            }
+            else {
+                res.send({ massage: "profilePic found", data: result });
+            }
+
+        }
+
+
     });
+
+}
+
+const allImages = (req, res) => {
+    Image.find((err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            if (result.length == 0) {
+                res.send({ massage: "no record found do some uploads ..." })
+            }
+            res.send(result)
+
+        }
+    })
 }
 
 
-module.exports = { uploadImage };
+module.exports = { uploadImage, getImage, allImages };

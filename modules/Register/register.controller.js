@@ -15,26 +15,32 @@ const getRegisteredUser = (req, res) => {
 
 const postRegister = (req, res) => {
 
-    console.log(req.body.email);
-    let register = new Register();
-    register.email = req.body.email;
 
+    //===============================================================================================///////
 
-    bcrypt.hash(req.body.password, 10)
+    Register.find({ email: req.body.email })
+        .then(result => result.length == 1 ? true : false)
+        .then((data) => {
+            if (!data) {
+                return bcrypt.hash(req.body.password, 10);
+            }
+            else {
+                res.send({ msg: " email already exist " });
+            }
+        })
         .then((hash) => {
+            let register = new Register();
+            register.email = req.body.email
             register.password = hash;
-            register.save(function (err) {
-                if (err) {
-                    res.send(err);
-                }
-                res.json({ msg: 'Registration Done', data: register });
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-}
+            return register.save();
 
+        })
+        .then(data => res.json({ msg: 'Registration Done', data, }))
+        .catch((err) => {
+            //console.log(err);
+        })
+
+}
 
 
 
@@ -53,21 +59,33 @@ module.exports = { getRegisteredUser, deleteRegistereduser, postRegister };
 
 
 
-// JOI
-    // // createing Schema to validate  data
-    // const schema = Joi.object().keys({
-    //     email: Joi.string().trim().email().required(),
-    //     password: Joi.string().min(5).max(12).required()
-    // })
+// const postRegister = (req, res) => {
 
-    // Joi.validate(req.body, schema, (err, result) => {
-    //     if (err) {
-    //         res.send(err)
-    //         console.log("error console"+result);
-    //     }
-    //     else {
-    //         console.log("else console"+result);
-    //         res.send("Validation Done")
-    //     }
+//     Register.find({ email: req.body.email }, (result) => result)
+//         .then(result => {
+//             if (result.length == 1)
+//                 res.send("email already exist  try login ")
+//             else {
+//                 let register = new Register();
+//                 register.email = req.body.email;
+//                 bcrypt.hash(req.body.password, 10)
+//                     .then((hash) => {
+//                         register.password = hash;
+//                         register.save(function (err, register) {
+//                             if (err) {
+//                                 res.send(err);
+//                             }
+//                             res.json({ msg: 'Registration Done', data: register });
+//                         });
+//                     })
+//                     .catch((err) => {
+//                         console.log(err);
+//                     })
 
-    // });
+
+//             }
+//         })
+
+
+// }
+

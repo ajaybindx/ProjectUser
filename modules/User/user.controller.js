@@ -60,7 +60,7 @@ const putUser = (req, res) => {
         if (err) {
             res.send(err);
         }
-        res.send({ msg: 'Updated', data: user });
+        res.send({ msg: 'Updated' });
 
     });
 };

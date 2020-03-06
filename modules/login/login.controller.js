@@ -9,6 +9,8 @@ const loginpage = (req, res) => {
 // Login Process
 const postlogin = (req, res, next) => {
     passport.authenticate('local')
+    .then(res.send({massage:'Login Sucessfull'}))
+
     
       
 };

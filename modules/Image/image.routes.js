@@ -6,7 +6,7 @@ const routes = express.Router();
 
 
 routes.post('/', controller.uploadImage);
-//routes.get('/upload', controller.getform);
-
+routes.get('/:imagepath', controller.getImage);
+routes.get('/', controller.allImages);
 
 module.exports = routes;

@@ -7,9 +7,9 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 const app = express();
-app.use(bodyParser.json({ type: 'application/json' }));
+app.use(bodyParser.json({ type: 'application/json' })); 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 
 
 // Public Folder
