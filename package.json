@@ -18,8 +18,8 @@
   "homepage": "https://github.com/ajaybindx/ProjectUser#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "joi": "^14.3.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
